@@ -4,87 +4,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Todo List</title>
     <link rel="stylesheet" href="todo.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
 
     <div class="nav">
-        <h2>Todo List</h2>
+        <h2>Todo List📝</h2>
     </div>
 
     <div id="container1">
-    <div id="ib">
-        <input id="inp" type="text" placeholder="Add your list...">
-        <button id="btn" onclick="fun()">Add</button>
+        <div id="ib">
+            <input class="form-control m-auto" type="text" name="search" placeholder="Add your list..." id="inp"/>
+            <button id="btn" onclick="fun()">Add</button>
+        </div>
     </div>
-</div>
+
     <h1>List-items:</h1>
     <div id="container">
-        <div id="li-items"></div>
-        
-        
+        <ul id="li-items"></ul>
     </div>
 
+    <script>
+        function fun() {
+            let inp = document.getElementById("inp");
+            let items = document.getElementById("li-items");
 
+            if (inp.value === '') {
+                alert("You must write something!!!");
+            } else {
+                let li = document.createElement("li");
 
+                let checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.className = "complete-checkbox";
+                checkbox.addEventListener('change', function() {
+                    li.classList.toggle('completed', checkbox.checked);
+                });
 
+                let text = document.createElement("span");
+                text.className = "item-text";
+                text.textContent = inp.value;
+
+                let trash = document.createElement("span");
+                trash.className = "delete-icon";
+                trash.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                trash.addEventListener('click', function() {
+                    li.remove();
+                });
+
+                li.appendChild(checkbox);
+                li.appendChild(text);
+                li.appendChild(trash);
+                items.append(li);
+                inp.value = '';
+            }
+        }
+    </script>
 
 </body>
 
 </html>
-<script>
-
-
-    function fun() {
-        let inp = document.getElementById("inp");
-        let btn = document.getElementById("btn");
-        let items = document.getElementById("li-items")
-        
-
-        if (inp.value === '') {
-            alert("You must write something!!!");
-        } else {
-            let li = document.createElement("li");
-            li.textContent = inp.value;
-            items.append(li);
-            inp.value = '';
-
-            let span = document.createElement("span");
-            span.innerHTML = "\u00d7"
-
-            li.appendChild(span);
-            
-
-
-            li.addEventListener('click', function (event) {
-                li.classList.toggle('completed');
-            });
-
-            span.addEventListener('click', function (event) {
-                span.classList.add("delete")
-                li.remove();
-
-
-
-
-
-            });
-
-
-
-
-
-        }
-    }
-
-
-</script>
